@@ -21,14 +21,10 @@ body {
     align-items: center;
     padding-bottom: 20px;
 }
-.icon-img {
-    width: 30px;
-    height: 30px;
-    background-color: blue;
-}
+
 .icon-name {
     margin-top: 10px;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
 }
 .main {
     width: 60vw;
