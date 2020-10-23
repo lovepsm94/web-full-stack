@@ -3,6 +3,7 @@ async function getPokeData(id) {
     return data = await response.json()
 }
 let currentPoke = undefined
+
 //render sellected pokemon
 document.querySelector('.search').addEventListener('submit', async (e) => {
     e.preventDefault()
@@ -20,78 +21,45 @@ document.querySelector('.search').addEventListener('submit', async (e) => {
             `
     }
 })
-let deck1String = localStorage.deck1 || '[]'
-let deck1 = JSON.parse(deck1String)
-let deck2String = localStorage.deck2 || '[]'
-let deck2 = JSON.parse(deck2String)
-function addPokemon1() {
+let deckString = localStorage.deck || '{"deck1": [], "deck2": []}'
+let deck = JSON.parse(deckString)
+function addPokemon(number) {
     if (currentPoke) {
         const tempId = generateID()
-        document.querySelector(`#deck-poke-wrapper-1`).insertAdjacentHTML('beforeend', `
+        document.querySelector(`#deck-poke-wrapper-${number}`).insertAdjacentHTML('beforeend', `
         <div class="poke-wrapper" id="${tempId}">
             <div class="poke-name">${currentPoke.name}</div>
             <img src="${currentPoke.sprites.back_default}" alt="" class="poke-img">
-            <button class="delete-btn" onclick="deletePoke1(this.parentNode.id)">X</button>
+            <button class="delete-btn" onclick="deletePoke(${number}, this.parentNode.id)">x</button>
         </div>
         `)
-        deck1.push({pokeId: currentPoke.id, elementId: tempId})
-        deck1String = localStorage.deck1 = JSON.stringify(deck1)
+        deck[`deck${number}`].push({pokeId: currentPoke.id, elementId: tempId})
+        deckString = localStorage.deck = JSON.stringify(deck)
     }
 }
-function addPokemon2() {
-    if (currentPoke) {
-        const tempId = generateID()
-        document.querySelector(`#deck-poke-wrapper-2`).insertAdjacentHTML('beforeend', `
-        <div class="poke-wrapper" id="${tempId}">
-            <div class="poke-name">${currentPoke.name}</div>
-            <img src="${currentPoke.sprites.back_default}" alt="" class="poke-img">
-            <button class="delete-btn" onclick="deletePoke2(this.parentNode.id)">X</button>
-        </div>
-        `)
-        deck2.push({pokeId: currentPoke.id, elementId: tempId})
-        deck2String = localStorage.deck2 = JSON.stringify(deck2)
-    }
-}
-async function renderDeck1() {
-    for (let poke of deck1) {
+
+async function renderDeck(number) {
+    for (let poke of deck[`deck${number}`]) {
         const pokeData = await getPokeData(poke.pokeId)
-        document.querySelector(`#deck-poke-wrapper-1`).insertAdjacentHTML('beforeend', `
+        document.querySelector(`#deck-poke-wrapper-${number}`).insertAdjacentHTML('beforeend', `
         <div class="poke-wrapper" id="${poke.elementId}">
             <div class="poke-name">${pokeData.name}</div>
             <img src="${pokeData.sprites.back_default}" alt="" class="poke-img">
-            <button class="delete-btn" onclick="deletePoke1(this.parentNode.id)">x</button>
+            <button class="delete-btn" onclick="deletePoke(${number}, this.parentNode.id)">x</button>
         </div>
         `)
     }
 }
-async function renderDeck2() {
-    for (let poke of deck2) {
-        const pokeData = await getPokeData(poke.pokeId)
-        document.querySelector(`#deck-poke-wrapper-2`).insertAdjacentHTML('beforeend', `
-        <div class="poke-wrapper" id="${poke.elementId}">
-            <div class="poke-name">${pokeData.name}</div>
-            <img src="${pokeData.sprites.back_default}" alt="" class="poke-img">
-            <button class="delete-btn" onclick="deletePoke2(this.parentNode.id)">x</button>
-        </div>
-        `)
-    }
-}
-renderDeck1()
-renderDeck2()
+
+renderDeck(1)
+renderDeck(2)
 
 function generateID() {
     return new Date().valueOf().toString(36) + Math.random().toString(36).substr(2)
 }
-function deletePoke1(id) {
+function deletePoke(number, id) {
     document.getElementById(`${id}`).remove()
-    const deck = deck1.filter(poke => poke.elementId !== id)
-    deck1 = deck
-    deck1String = localStorage.deck1 = JSON.stringify(deck1)
-}
-function deletePoke2(id) {
-    document.getElementById(`${id}`).remove()
-    const deck = deck2.filter(poke => poke.elementId !== id)
-    deck2 = deck
-    deck2String = localStorage.deck2 = JSON.stringify(deck2)
+    deck[`deck${number}`] = deck[`deck${number}`].filter(poke => poke.elementId !== id)
+    deckString = localStorage.deck = JSON.stringify(deck)
 }
 
