@@ -50,9 +50,20 @@ async function renderDeck(number) {
         `)
     }
 }
+//render deck
+for (let i = 0; i < Object.keys(deck).length; i++) {
+    document.querySelector('.container').insertAdjacentHTML('beforeend', `
+    <div class="deck-container">
+        <div class="deck-name-wrapper">
+            <div class="deck-name">Deck ${i+1}</div>
+            <button class="add-btn" onclick="addPokemon(${i+1})">+</button>
+        </div>
+        <div class="deck-poke-wrapper" id="deck-poke-wrapper-${i+1}"></div>
+    </div>
+    `)
+    renderDeck(i+1)
+}
 
-renderDeck(1)
-renderDeck(2)
 
 function generateID() {
     return new Date().valueOf().toString(36) + Math.random().toString(36).substr(2)
@@ -62,4 +73,18 @@ function deletePoke(number, id) {
     deck[`deck${number}`] = deck[`deck${number}`].filter(poke => poke.elementId !== id)
     deckString = localStorage.deck = JSON.stringify(deck)
 }
-
+//add new deck
+document.querySelector('.add-deck').addEventListener('click', (e) => {
+    e.preventDefault
+    document.querySelector('.container').insertAdjacentHTML('beforeend', `
+    <div class="deck-container">
+        <div class="deck-name-wrapper">
+            <div class="deck-name">Deck ${Object.keys(deck).length+1}</div>
+            <button class="add-btn" onclick="addPokemon(${Object.keys(deck).length+1})">+</button>
+        </div>
+        <div class="deck-poke-wrapper" id="deck-poke-wrapper-${Object.keys(deck).length+1}"></div>
+    </div>
+    `)
+    deck[`deck${Object.keys(deck).length+1}`] = []
+    deckString = localStorage.deck = JSON.stringify(deck)
+})

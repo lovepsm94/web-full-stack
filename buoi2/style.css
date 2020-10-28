@@ -89,3 +89,8 @@ img {
     cursor: pointer;
     outline: none;
 }
+.add-deck {
+    margin: 30px;
+    width: 200px;
+    height: 40px;
+}
