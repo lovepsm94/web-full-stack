@@ -21,12 +21,12 @@ app.get('/question/:questionId', (req, res) => {
         if (err) throw err
         const questions = JSON.parse(data)
         const id = req.params.questionId
-        if (typeof(id - 1) !== 'number' || id < 0 || id >= questions.length) return res.send('404 Not Found')
-        for (question of questions) {
-            if (question.id == id) return res.send(question)
-        }
+        if (typeof (id - 1) !== 'number' || id < 0 || id >= questions.length) return res.send('404 Not Found')
+        const pathFile = path.resolve(__dirname, './client/question.html')
+        res.sendFile(pathFile)
     })
 })
+
 
 app.get('*', (req, res) => {
     res.send('404 not found')
@@ -48,6 +48,16 @@ app.post('/create-question', (req, res) => {
             if (err) return res.send({ success: 0 })
             res.send({ success: 1, data: newQuestion });
         })
+    })
+})
+app.post('/question', (req, res) => {
+    const { questionId } = req.body
+    fs.readFile('data.json', (err, data) => {
+        if (err) throw err
+        const questions = JSON.parse(data)
+        for (let question of questions) {
+            if (question.id == questionId) return res.send(question)
+        }
     })
 })
 
