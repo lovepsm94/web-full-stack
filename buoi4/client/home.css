@@ -48,10 +48,10 @@ h2 {
     cursor: pointer;
 }
 .yes-btn {
-    background-color: #D9534F;
+    background-color: rgb(51,122,183);
 }
 .no-btn {
-    background-color: rgb(51,122,183);
+    background-color: #D9534F;
 }
 
 .controller-btn {
