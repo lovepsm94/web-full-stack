@@ -10,7 +10,11 @@ app.use(express.static('client'));
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.get('/', (req, res) => {
-    res.send('Hello world!');
+    fs.readFile('data.json', (err, data) => {
+        if (err) throw err
+        const pathFile = path.resolve(__dirname, './client/home.html')
+        res.sendFile(pathFile)
+    })
 })
 app.get('/ask', (req, res) => {
     const pathFile = path.resolve(__dirname, './client/create-question.html')
@@ -28,8 +32,8 @@ app.get('/question/:questionId', (req, res) => {
 })
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
-  }
-  
+}
+
 app.get('/random-question', (req, res) => {
     fs.readFile('data.json', (err, data) => {
         if (err) throw err
@@ -62,12 +66,26 @@ app.post('/create-question', (req, res) => {
     })
 })
 app.post('/question', (req, res) => {
-    const { questionId } = req.body
+    const { questionId, upVote, downVote } = req.body
     fs.readFile('data.json', (err, data) => {
         if (err) throw err
         const questions = JSON.parse(data)
         for (let question of questions) {
-            if (question.id == questionId) return res.send(question)
+            if (question.id == questionId) {
+                if (upVote) {
+                    question.yesCount++
+                    fs.writeFile('data.json', JSON.stringify(questions), (err) => {
+                        if (err) return res.send({ success: 0 })
+                        res.send({ success: 1, data: question });
+                    })
+                } else if (downVote) {
+                    question.noCount++
+                    fs.writeFile('data.json', JSON.stringify(questions), (err) => {
+                        if (err) return res.send({ success: 0 })
+                        res.send({ success: 1, data: question });
+                    })
+                } else return res.send(question)
+            }
         }
     })
 })
