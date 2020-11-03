@@ -26,7 +26,18 @@ app.get('/question/:questionId', (req, res) => {
         res.sendFile(pathFile)
     })
 })
-
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
+  
+app.get('/random-question', (req, res) => {
+    fs.readFile('data.json', (err, data) => {
+        if (err) throw err
+        const questions = JSON.parse(data)
+        const randomIndex = getRandomInt(questions.length)
+        res.send(questions[randomIndex])
+    })
+})
 
 app.get('*', (req, res) => {
     res.send('404 not found')

@@ -1,0 +1,9 @@
+.poke-colection {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+.poke-info {
+    display: flex;
+    flex-direction: column;
+}

@@ -1,0 +1,47 @@
+/* css in js */
+/* material UI */
+/* body {
+    transition: all;
+    transform:
+} */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    margin-top: 20px;
+    justify-content: center;
+    position: relative;
+}
+.img {
+    background-color: blue;
+    width: 200px;
+    height: 300px;
+    position: absolute;
+}
+.text {
+    width: 200px;
+    height: 200px;
+    margin-top: 50px;
+    background-color: brown;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.text p {
+    width: 200px;
+}
+.container:hover .img {
+    transition: all 1s ease-in-out;
+}
+.container:hover .text {
+    transition: all 1s ease-in-out;
+    width: 80%;
+    align-items: flex-end;
+}
+
+
+
