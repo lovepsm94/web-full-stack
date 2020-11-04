@@ -48,6 +48,7 @@ app.get('*', (req, res) => {
 })
 
 app.post('/create-question', (req, res) => {
+    console.log(req)
     const { content } = req.body;
     fs.readFile('data.json', (err, data) => {
         if (err) return res.send({ success: 0 });
