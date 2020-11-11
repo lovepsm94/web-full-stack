@@ -3,6 +3,7 @@ $.ajax({
     type: "POST",
     data: { questionId: window.location.pathname.slice(10) },
     success: (res) => {
+        console.log(res)
         renderPage(res)
     },
     error: (err) => console.log(err)
@@ -16,7 +17,7 @@ function renderPage(res) {
     yesCount + noCount !== 0 ? percentYes = (yesCount*100 / (yesCount + noCount)).toFixed() : percentYes = 50
     percentNo = 100 - percentYes
     $('#percent-yes-votes').text(`${percentYes}%`)
-    $('#no-progress').css('width', `${percentYes}%`)
-    $('#percent-no-votes').text(`${percentNo}%`)
     $('#yes-progress').css('width', `${percentYes}%`)
+    $('#percent-no-votes').text(`${percentNo}%`)
+    $('#no-progress').css('width', `${percentNo}%`)
 }

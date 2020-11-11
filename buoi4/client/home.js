@@ -6,7 +6,7 @@ function renderPage() {
         type: "GET",
         success: (res) => {
             $('#content').text(`${res.content}`)
-            questionId = res.id
+            questionId = res._id
             document.querySelector('.result-btn').disabled = false
         },
         error: (err) => console.log(err)

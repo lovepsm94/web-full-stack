@@ -15,29 +15,28 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Quyết đê!</a>
+        <a class="navbar-brand" href="http://localhost:3000">Quyết đê!</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="http://localhost:3000/ask">Hỏi nhanh <span
-                            class="sr-only">(current)</span></a>
+                <li class="nav-item ">
+                    <a class="nav-link" href="http://localhost:3000/ask">Hỏi nhanh</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="http://localhost:3000">Đáp gọn</a>
                 </li>
             </ul>
         </div>
     </nav>
     <div class="container">
-        <h2 id="content" class="mt-4 text-center">content</h2>
-        <div class="mt2 text-center font-weight-bold">
+        <h2 id="content" class="mt-4 text-center text-break">content</h2>
+        <div class="mt-4 text-center font-weight-bold">
             <p id="total-votes">0 votes</p>
         </div>
-        <div class="progress mt-4" style="height: 2rem;">
+        <div class="progress" style="height: 2rem;">
             <div class="progress-bar bg-danger" role="progressbar" style="width: 50%" id="no-progress">
                 <div class="percent-no-votes"><i class="far fa-thumbs-down" id="percent-no-votes"></i></div>
             </div>
