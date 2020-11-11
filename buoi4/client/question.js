@@ -3,7 +3,6 @@ $.ajax({
     type: "POST",
     data: { questionId: window.location.pathname.slice(10) },
     success: (res) => {
-        console.log(res)
         renderPage(res)
     },
     error: (err) => console.log(err)
