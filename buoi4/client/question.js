@@ -16,8 +16,7 @@ function renderPage(res) {
     yesCount + noCount !== 0 ? percentYes = (yesCount*100 / (yesCount + noCount)).toFixed() : percentYes = 50
     percentNo = 100 - percentYes
     $('#percent-yes-votes').text(`${percentYes}%`)
-    $('.percent-yes-votes').css('width', `${percentYes}%`)
+    $('#no-progress').css('width', `${percentYes}%`)
     $('#percent-no-votes').text(`${percentNo}%`)
-    $('.percent-no-votes').css('width', `${percentNo}%`)
-    
+    $('#yes-progress').css('width', `${percentYes}%`)
 }
